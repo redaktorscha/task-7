@@ -6,8 +6,8 @@ const fetchData = (arr: string[], num: number): string => {
 };
 
 // промис возвращает первую часть строки "hello world!"
-const p1 = (): Promise<string> => {
-  return new Promise<string>((resolve: (s: string) => void) => {
+const p1 = (): Promise <string> => {
+  return new Promise <string> ((resolve: (s: string) => void) => {
     const firstHalfWord: string = fetchData(dataArr, 0);
     setTimeout(() => {
       resolve(firstHalfWord + " ");
@@ -16,15 +16,23 @@ const p1 = (): Promise<string> => {
 }
 
 // промис возвращает вторую часть строки "hello world!"
-const p2 = (txt: string): Promise<string> => {
-  return new Promise<string>((resolve: (st:string) => void) => {
+const p2 = (): Promise <string> => {
+  return new Promise <string> ((resolve: (s: string) => void) => {
     const secondHalfWord: string = fetchData(dataArr, 1);
     setTimeout(() => {
-      resolve(txt += secondHalfWord + "!");
+      resolve(secondHalfWord + "!");
     }, 1000);
   });
 }
 
-p1()
-  .then(p2)
-  .then(console.log)
+async function helloWorld() {
+  console.time('timer2');
+  const h = p1();
+  const w = p2();
+  const hello = await h;
+  const world = await w;
+  console.log(hello + world);
+  console.timeEnd('timer2');
+}
+
+helloWorld();
